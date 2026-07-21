@@ -1,0 +1,22 @@
+{
+  "name": "browser-agent-bridge",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A privacy-preserving bridge between MCP clients and an existing Chrome session.",
+  "scripts": {
+    "check": "node --check server/bridge.js && node --check server/cli.js && node --check extension/background.js && node --check extension/popup.js && node --check mcp-server/index.js",
+    "test": "npm --prefix server test && npm --prefix mcp-server test"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rxluz/browser-agent-bridge.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rxluz/browser-agent-bridge/issues"
+  },
+  "homepage": "https://rxluz.github.io/browser-agent-bridge/"
+}

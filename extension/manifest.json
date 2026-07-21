@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Browser Agent Bridge",
+  "version": "0.1.0",
+  "description": "Lets local AI agents control your existing Chrome session through a loopback-only bridge.",
+  "homepage_url": "https://rxluz.github.io/browser-agent-bridge/",
+  "permissions": ["tabs", "scripting", "activeTab", "storage", "alarms", "userScripts", "debugger"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Browser Agent Bridge"
+  }
+}

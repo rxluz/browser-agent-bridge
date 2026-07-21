@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Connect MCP clients to your existing Chrome session without sending browser data to a remote service." />
+    <title>Browser Agent Bridge</title>
+    <link rel="stylesheet" href="assets/site.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <nav>
+        <a class="brand" href="./">Browser Agent Bridge</a>
+        <div class="nav-links">
+          <a href="setup.html">Setup</a>
+          <a href="architecture.html">Architecture</a>
+          <a href="security.html">Security</a>
+          <a href="https://github.com/rxluz/browser-agent-bridge">GitHub</a>
+        </div>
+      </nav>
+      <div class="hero-content">
+        <p class="eyebrow">LOCAL BROWSER CONTROL FOR MCP CLIENTS</p>
+        <h1>Use the Chrome session<br />you already trust.</h1>
+        <p class="lead">Browser Agent Bridge lets local AI agents work with your existing Chrome tabs and authenticated sessions, while keeping the control path on your machine.</p>
+        <div class="cta-row">
+          <a class="button primary" href="setup.html">Get started</a>
+          <a class="button secondary" href="https://github.com/rxluz/browser-agent-bridge">View source</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="diagram-section">
+        <p class="eyebrow">ONE LOCAL CONTROL PATH</p>
+        <div class="diagram" aria-label="MCP client connects to local server, local bridge, Chrome extension, then Chrome">
+          <span>MCP client</span><b>→</b><span>stdio MCP server</span><b>→</b><span>loopback bridge</span><b>→</b><span>Chrome extension</span><b>→</b><span>Chrome</span>
+        </div>
+        <p class="muted">No cloud relay. No cookie export. No clean automation profile to sign into again.</p>
+      </section>
+
+      <section class="grid">
+        <article>
+          <h2>Existing sessions</h2>
+          <p>Operate tabs that are already open in your Chrome profile, including SSO-backed and internal applications available in that profile.</p>
+        </article>
+        <article>
+          <h2>Agent-friendly targeting</h2>
+          <p>Get an accessibility-oriented snapshot, then interact through stable IDs instead of brittle coordinates or website-specific scripts.</p>
+        </article>
+        <article>
+          <h2>Modern web UI support</h2>
+          <p>Target open shadow roots and same-origin frames, set framework-controlled inputs, and use trusted CDP input for rich editors.</p>
+        </article>
+        <article>
+          <h2>Conservative defaults</h2>
+          <p>Loopback-only binding, a required strong token, and disabled page evaluation help keep the integration explicit and local.</p>
+        </article>
+      </section>
+
+      <section class="compare">
+        <div>
+          <p class="eyebrow">A DIFFERENT JOB THAN TEST AUTOMATION</p>
+          <h2>Not another Playwright replacement.</h2>
+        </div>
+        <p>Playwright and Puppeteer excel at repeatable tests in controlled browser profiles. Browser Agent Bridge is for developer agents that need a consented path into the user’s active browser context.</p>
+      </section>
+
+      <section class="quickstart">
+        <p class="eyebrow">THREE STEPS</p>
+        <ol>
+          <li><strong>Start a local bridge</strong><code>BRIDGE_TOKEN=... npm start</code></li>
+          <li><strong>Pair the Chrome extension</strong><span>Load unpacked, then enter the local host, port, and token.</span></li>
+          <li><strong>Register the stdio MCP server</strong><span>Add a standard MCP configuration to your preferred client.</span></li>
+        </ol>
+        <a class="text-link" href="setup.html">Read the complete setup guide →</a>
+      </section>
+
+      <section class="warning">
+        <h2>Powerful by design</h2>
+        <p>A connected agent can read and act in the browser context you expose. Only connect trusted MCP clients, review their actions, and never paste secrets into prompts or tool arguments.</p>
+        <a class="text-link" href="security.html">Read the security model →</a>
+      </section>
+    </main>
+
+    <footer>
+      <span>MIT licensed · Built for local-first developer workflows</span>
+      <a href="https://github.com/rxluz/browser-agent-bridge">github.com/rxluz/browser-agent-bridge</a>
+    </footer>
+  </body>
+</html>

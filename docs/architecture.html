@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Architecture · Browser Agent Bridge</title>
+    <link rel="stylesheet" href="assets/site.css" />
+  </head>
+  <body>
+    <header class="hero compact">
+      <nav>
+        <a class="brand" href="./">Browser Agent Bridge</a>
+        <div class="nav-links"><a href="setup.html">Setup</a><a href="security.html">Security</a><a href="https://github.com/rxluz/browser-agent-bridge">GitHub</a></div>
+      </nav>
+      <div class="hero-content"><p class="eyebrow">ARCHITECTURE</p><h1>A small, local chain of custody.</h1></div>
+    </header>
+    <main class="doc">
+      <h2>Components</h2>
+      <table>
+        <thead><tr><th>Component</th><th>Responsibility</th></tr></thead>
+        <tbody>
+          <tr><td>Chrome extension</td><td>Owns Chrome permissions and performs tab, DOM, screenshot, and DevTools Protocol operations.</td></tr>
+          <tr><td>Loopback bridge</td><td>Authenticates commands with the shared token and relays them between HTTP clients and the extension WebSocket.</td></tr>
+          <tr><td>MCP server</td><td>Exposes a small standard stdio interface: status and generic browser commands.</td></tr>
+          <tr><td>MCP client</td><td>Provides the agent and decides which tool calls to make. This is the trust boundary for prompts and model behavior.</td></tr>
+        </tbody>
+      </table>
+      <h2>Command lifecycle</h2>
+      <ol class="plain">
+        <li>An MCP client calls <code>browser_command</code> over stdio.</li>
+        <li>The MCP server posts the action to <code>127.0.0.1:8765</code>, authenticated by the bridge token.</li>
+        <li>The local bridge forwards the command through its existing extension WebSocket.</li>
+        <li>The Chrome extension uses Chrome APIs, content-script execution, or the DevTools Protocol as needed.</li>
+        <li>The result returns through the same path as structured JSON.</li>
+      </ol>
+      <h2>Interaction strategy</h2>
+      <p>The agent should first use a viewport-only snapshot. The extension walks the standard DOM, open shadow roots, and same-origin frames, returning accessible names and a temporary <code>agentId</code>. The next action can use that ID rather than guessing a CSS selector or physical location.</p>
+      <p>For inputs controlled by frontend frameworks, <code>type</code> uses the native value setter and dispatches input events. For rich text, <code>insert_text</code>, <code>press</code>, and <code>clear</code> send trusted DevTools Protocol input, which many editors require.</p>
+      <h2>Boundaries and limitations</h2>
+      <ul>
+        <li>Cross-origin iframe DOM cannot be inspected because browser same-origin protections still apply.</li>
+        <li>Closed shadow roots cannot be traversed.</li>
+        <li>The extension must be installed in the Chrome profile that contains the session to be controlled.</li>
+        <li>This is an interactive developer tool, not a replacement for deterministic end-to-end test automation.</li>
+      </ul>
+      <p>For implementation detail, see <a href="https://github.com/rxluz/browser-agent-bridge/tree/main/extension">the extension source</a> and <a href="https://github.com/rxluz/browser-agent-bridge/tree/main/mcp-server">the MCP server</a>.</p>
+    </main>
+    <footer><span>Browser Agent Bridge</span><a href="https://github.com/rxluz/browser-agent-bridge">GitHub</a></footer>
+  </body>
+</html>

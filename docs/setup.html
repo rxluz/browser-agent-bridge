@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Setup · Browser Agent Bridge</title>
+    <link rel="stylesheet" href="assets/site.css" />
+  </head>
+  <body>
+    <header class="hero compact">
+      <nav>
+        <a class="brand" href="./">Browser Agent Bridge</a>
+        <div class="nav-links"><a href="architecture.html">Architecture</a><a href="security.html">Security</a><a href="https://github.com/rxluz/browser-agent-bridge">GitHub</a></div>
+      </nav>
+      <div class="hero-content"><p class="eyebrow">SETUP</p><h1>Connect your MCP client locally.</h1></div>
+    </header>
+    <main class="doc">
+      <h2>Prerequisites</h2>
+      <ul><li>Chrome with Developer mode available.</li><li>Node.js 18 or later.</li><li>An MCP client that supports local stdio servers.</li></ul>
+      <h2>1. Clone and install</h2>
+      <pre><code>git clone https://github.com/rxluz/browser-agent-bridge.git
+cd browser-agent-bridge/server
+npm ci</code></pre>
+      <h2>2. Generate a bridge token</h2>
+      <pre><code>export BRIDGE_TOKEN="$(node -e "console.log(require('crypto').randomBytes(32).toString('base64url'))")"
+npm start</code></pre>
+      <p>Do not use a memorable phrase. Keep this token private and do not commit it to a config file.</p>
+      <h2>3. Load the extension</h2>
+      <ol class="plain"><li>Visit <code>chrome://extensions</code> and enable Developer mode.</li><li>Select <strong>Load unpacked</strong> and choose the repository's <code>extension/</code> folder.</li><li>Open the extension popup and provide host <code>127.0.0.1</code>, port <code>8765</code>, and the generated token.</li><li>Confirm the badge displays <code>on</code>.</li></ol>
+      <h2>4. Configure MCP</h2>
+      <pre><code>{
+  "mcpServers": {
+    "browser-agent-bridge": {
+      "command": "node",
+      "args": ["/absolute/path/to/browser-agent-bridge/mcp-server/index.js"],
+      "env": {
+        "BRIDGE_HOST": "127.0.0.1",
+        "BRIDGE_PORT": "8765",
+        "BRIDGE_TOKEN": "your-generated-token"
+      }
+    }
+  }
+}</code></pre>
+      <p>Use the configuration file or UI documented by your MCP client. The server uses the standard stdio JSON-RPC transport.</p>
+      <h2 id="action-reference">Action reference</h2>
+      <table>
+        <thead><tr><th>Action</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td><code>snapshot</code></td><td>Return interactive controls. Prefer <code>viewportOnly: true</code>.</td></tr>
+          <tr><td><code>click</code></td><td>Click by <code>agentId</code>, CSS selector, or coordinate.</td></tr>
+          <tr><td><code>type</code></td><td>Set a regular input, textarea, or contenteditable field.</td></tr>
+          <tr><td><code>insert_text</code></td><td>Insert trusted text into a focused rich-text editor.</td></tr>
+          <tr><td><code>press</code></td><td>Send a key or shortcut such as <code>Enter</code>, <code>CTRL+A</code>, or <code>META+A</code>.</td></tr>
+          <tr><td><code>clear</code></td><td>Select and delete an editable target.</td></tr>
+          <tr><td><code>get_content</code></td><td>Read title, URL, and visible text.</td></tr>
+          <tr><td><code>wait_for</code></td><td>Wait for a selector, page text, or JavaScript condition.</td></tr>
+          <tr><td><code>eval</code></td><td>Run page JavaScript only if the bridge started with <code>BRIDGE_ENABLE_EVAL=1</code>.</td></tr>
+        </tbody>
+      </table>
+      <h2>Troubleshooting</h2>
+      <ul><li><strong>Badge is off:</strong> verify the bridge is running, host/port match, and the same token is configured on both sides.</li><li><strong>Target not found:</strong> take a fresh snapshot; `agentId` values are intentionally scoped to the current page state.</li><li><strong>Action fails in a rich editor:</strong> focus it with <code>click</code> or a target-aware action, then use <code>insert_text</code>.</li><li><strong><code>eval</code> is denied:</strong> this is expected unless you set <code>BRIDGE_ENABLE_EVAL=1</code>.</li></ul>
+    </main>
+    <footer><span>Browser Agent Bridge</span><a href="https://github.com/rxluz/browser-agent-bridge">GitHub</a></footer>
+  </body>
+</html>

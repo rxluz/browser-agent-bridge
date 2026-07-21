@@ -1,0 +1,17 @@
+{
+  "name": "@browser-agent-bridge/local-bridge",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local loopback bridge for the Browser Agent Bridge Chrome extension.",
+  "main": "bridge.js",
+  "bin": {
+    "browser-bridge": "cli.js"
+  },
+  "scripts": {
+    "start": "node bridge.js",
+    "test": "node test/bridge.test.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}

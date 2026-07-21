@@ -1,0 +1,39 @@
+name: Bug report
+description: Report a reproducible Browser Agent Bridge problem.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include bridge tokens, cookies, credentials, internal URLs, or private screenshots.
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: Describe the observed behavior and the expected behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Provide sanitized, site-agnostic steps.
+      placeholder: |
+        1. Start the bridge
+        2. Take a snapshot
+        3. Run ...
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: Browser, operating system, extension version, bridge version, and MCP client.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Sanitized logs
+      description: Remove all tokens, private URLs, page contents, and identifying data.

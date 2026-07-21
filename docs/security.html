@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Security · Browser Agent Bridge</title>
+    <link rel="stylesheet" href="assets/site.css" />
+  </head>
+  <body>
+    <header class="hero compact">
+      <nav>
+        <a class="brand" href="./">Browser Agent Bridge</a>
+        <div class="nav-links"><a href="setup.html">Setup</a><a href="architecture.html">Architecture</a><a href="https://github.com/rxluz/browser-agent-bridge">GitHub</a></div>
+      </nav>
+      <div class="hero-content"><p class="eyebrow">SECURITY</p><h1>Local-first is not risk-free.</h1></div>
+    </header>
+    <main class="doc">
+      <h2>What the bridge can do</h2>
+      <p>A connected MCP client can inspect page content and interact with pages in the paired Chrome profile. Those pages may already be authenticated. In effect, the connected client has browser automation capability under your active identity.</p>
+      <h2>Default controls</h2>
+      <ul>
+        <li>The bridge only binds to loopback addresses unless an explicit override is set.</li>
+        <li>A random 32-character minimum token is required on both the bridge and extension.</li>
+        <li>No remote relay, telemetry, or cookie export is built into the project.</li>
+        <li>Page JavaScript evaluation is disabled by default.</li>
+        <li>Chrome surfaces its debugger notice when trusted DevTools Protocol input is active.</li>
+      </ul>
+      <h2>Operational guidance</h2>
+      <ul>
+        <li>Connect only MCP clients and agents you trust.</li>
+        <li>Use a dedicated Chrome profile for sensitive work if you need stronger separation.</li>
+        <li>Do not put the bridge token in a repository, prompt, issue, screenshot, shell history shared with others, or a client config committed to source control.</li>
+        <li>Prefer <code>snapshot</code> and targeted actions. Keep <code>eval</code> disabled unless its additional power is necessary.</li>
+        <li>Stop the bridge when it is not in use and remove the extension from profiles that do not need it.</li>
+      </ul>
+      <h2>Threat model</h2>
+      <p>The primary threat is an untrusted or prompt-injected agent issuing browser commands. A malicious page can also try to influence an agent through page text. Treat retrieved page content as untrusted input, review actions that change data or send messages, and never allow arbitrary automation solely because text on a page requests it.</p>
+      <h2>Reporting vulnerabilities</h2>
+      <p>Use a private GitHub security advisory. Do not publish exploit details in an issue. See the repository <a href="https://github.com/rxluz/browser-agent-bridge/security/policy">security policy</a> for details.</p>
+    </main>
+    <footer><span>Browser Agent Bridge</span><a href="https://github.com/rxluz/browser-agent-bridge">GitHub</a></footer>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+:root {
+  --ink: #11221b;
+  --muted: #607269;
+  --paper: #fbfcf8;
+  --sand: #f0f3eb;
+  --accent: #196b46;
+  --accent-light: #d7f1df;
+  --line: #d7ddd5;
+  --night: #14241c;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--ink); background: var(--paper); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.55; }
+a { color: inherit; }
+.hero { min-height: 650px; color: #f6fbf7; background: radial-gradient(circle at 75% 20%, #31845a 0, transparent 26%), linear-gradient(140deg, #10241b 5%, #1a4d35 100%); padding: 0 6vw 90px; }
+.hero.compact { min-height: 365px; padding-bottom: 60px; }
+.hero.compact .hero-content { margin-top: 65px; }
+.hero.compact h1 { max-width: 800px; font-size: clamp(2.8rem, 5vw, 4.8rem); }
+nav { max-width: 1150px; margin: 0 auto; padding: 28px 0; display: flex; justify-content: space-between; align-items: center; }
+.brand { font-weight: 740; text-decoration: none; letter-spacing: -0.025em; }
+.nav-links { display: flex; gap: 24px; font-size: .92rem; }
+.nav-links a { color: #dcebe2; text-decoration: none; }
+.hero-content { max-width: 1150px; margin: 105px auto 0; }
+.eyebrow { margin: 0 0 16px; color: var(--accent); font-size: .72rem; font-weight: 800; letter-spacing: .14em; }
+.hero .eyebrow { color: #a6dfbb; }
+h1, h2 { line-height: 1.08; letter-spacing: -.045em; }
+h1 { max-width: 760px; margin: 0; font-size: clamp(3rem, 7vw, 6.4rem); }
+h2 { font-size: clamp(1.8rem, 3.1vw, 3rem); }
+.lead { max-width: 620px; margin: 28px 0; color: #d7e8de; font-size: 1.18rem; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.button { display: inline-block; padding: 12px 18px; border-radius: 7px; font-weight: 700; text-decoration: none; }
+.primary { color: #123322; background: #d5f3de; }
+.secondary { border: 1px solid #91bba1; color: #f2faf4; }
+main { max-width: 1150px; margin: 0 auto; padding: 0 6vw; }
+.diagram-section { padding: 88px 0; text-align: center; }
+.diagram { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px; font-weight: 700; }
+.diagram span { padding: 10px 14px; background: var(--sand); border: 1px solid var(--line); border-radius: 7px; }
+.diagram b { color: var(--accent); }
+.muted { color: var(--muted); }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: var(--line); }
+.grid article { padding: 32px; background: var(--paper); }
+.grid h2 { margin: 0 0 12px; font-size: 1.4rem; }
+.grid p { margin: 0; color: var(--muted); }
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; padding: 110px 0; align-items: start; }
+.compare h2 { margin: 0; }
+.compare > p { margin: 36px 0 0; color: var(--muted); font-size: 1.1rem; }
+.quickstart { margin-bottom: 70px; padding: 52px; border-radius: 10px; color: #ecf7ef; background: var(--night); }
+.quickstart .eyebrow { color: #a8e3be; }
+ol { margin: 25px 0; padding: 0; list-style: none; counter-reset: steps; }
+ol li { display: grid; grid-template-columns: 38px minmax(0, 1fr); column-gap: 14px; margin: 20px 0; }
+ol li::before { content: counter(steps); counter-increment: steps; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; color: var(--night); background: #b8eac8; font-size: .8rem; font-weight: 800; }
+ol strong, ol code, ol span { grid-column: 2; }
+ol code { margin-top: 6px; color: #c5ecd1; }
+.text-link { color: #75d393; font-weight: 700; text-decoration: none; }
+.warning { padding: 45px 0 100px; max-width: 780px; }
+.warning h2 { margin: 0 0 16px; }
+.warning p { color: var(--muted); }
+.doc { max-width: 860px; padding-top: 68px; padding-bottom: 100px; }
+.doc h2 { margin: 58px 0 18px; font-size: 2rem; }
+.doc h3 { margin-top: 30px; }
+.doc li { margin: 8px 0; }
+.doc pre { overflow-x: auto; padding: 20px; border-radius: 8px; color: #e6f7eb; background: var(--night); line-height: 1.5; }
+.doc code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; font-size: .9em; }
+.doc :not(pre) > code { padding: .15em .35em; border-radius: 4px; background: var(--sand); }
+.doc table { width: 100%; border-collapse: collapse; margin: 22px 0; }
+.doc th, .doc td { padding: 12px; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+.doc th { background: var(--sand); }
+.doc ol.plain { padding-left: 20px; list-style: decimal; counter-reset: none; }
+.doc ol.plain li { display: list-item; margin: 10px 0; }
+.doc ol.plain li::before { content: none; }
+footer { display: flex; justify-content: space-between; gap: 20px; padding: 28px 6vw; color: #c6d2cb; background: #0b1711; font-size: .88rem; }
+footer a { color: #c6d2cb; }
+@media (max-width: 700px) {
+  .hero { min-height: 580px; padding-bottom: 60px; }
+  nav { align-items: flex-start; gap: 18px; }
+  .nav-links { flex-wrap: wrap; justify-content: flex-end; gap: 10px 15px; }
+  .hero-content { margin-top: 75px; }
+  .grid, .compare { grid-template-columns: 1fr; }
+  .compare { gap: 0; padding: 76px 0; }
+  .quickstart { padding: 32px 24px; margin-inline: -10px; }
+  footer { display: block; }
+  footer a { display: block; margin-top: 8px; }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "@browser-agent-bridge/mcp-server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A standards-based MCP server for Browser Agent Bridge.",
+  "type": "commonjs",
+  "bin": {
+    "browser-agent-bridge-mcp": "index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test/mcp-server.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
